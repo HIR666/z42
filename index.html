@@ -1,0 +1,193 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="">
+<!--<![endif]-->
+
+<head>
+<meta charset="utf-8">
+<meta name="description" content="">
+<meta name="author" content="webthemez.com">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zaquurah42</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/flexslider.css">
+<link rel="stylesheet" href="css/jquery.fancybox.css">
+<link rel="stylesheet" href="css/main.css"> 
+<link href="jPlayer-2.9.2/dist/skin/pink.flag/css/jplayer.pink.flag.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/font-icon.css">
+<link rel="stylesheet" href="css/animate.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<!--amoizing-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa&family=Noto+Kufi+Arabic:wght@300&family=Reem+Kufi&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/fonts.css">
+<link href='https://css.gg/play-button-o.css' rel='stylesheet'>
+
+</head>
+
+<body>
+  
+<!-- header section -->
+<section class="banner" role="banner" id="banner">
+  
+  <header id="header">
+    <div class="header-content clearfix"> 
+      <img src="images/Logo.PNG" width="120" />
+      
+      
+      <!-- <nav class="navigation" role="navigation">
+        <ul class="primary-nav">
+		  <li><a href="#banner">Home</a></li>
+          <li><a href="#intro">About</a></li>
+          <li><a href="#services">We Do</a></li>
+          <li><a href="#Playlist">Playlist</a></li>
+		  <li><a href="#package">Albums</a></li>
+          <li><a href="#gallery">Events</a></li>
+          <li><a href="#teams">Our Team</a></li> 
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav> -->
+      <a href="#" class="nav-toggle">Menu<span></span></a> 
+    </div>
+      
+  </header>
+  <!-- banner text -->
+  <div class="container-fluid ratparent">
+    <div id="rattlyzer">
+      <i id="close" class="fa-solid fa-xmark fa-3x" style="position: absolute;top: 90px;right: 30px;z-index: 1000;display:none;"></i>
+    </div>
+    <audio id="audio" controls crossorigin></audio>
+    <div class="container">
+      
+      <div class="col-md-12 playui" id="playui">
+        <div class="banner-text text-center">
+          <h1 class="cfont">حلمي اراك</h1>
+          <i class="far fa-play-circle fa-8x" id="live"></i>
+          <p></p></div>
+        <!-- banner text --> 
+      </div>
+    </div>
+  </div>
+ 
+  
+</section>
+<!-- header section --> 
+<!-- intro section -->
+<section id="intro" class="section intro">
+  <div class="container">
+    <div class="col-md-8 col-md-offset-2 text-center">
+      <h3>Best Music Bootstrap Template</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eu libero scelerisque ligula sagittis faucibus eget quis lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> 
+        <a href="#Playlist" class="btn btn-large">Playlist</a> 
+    </div>
+  </div>
+</section>
+<!-- intro section --> 
+<!-- services section -->
+<section id="services" class="services service-section">
+  <div class="container">
+  <div class="section-header">
+                <h2 class="wow fadeInDown animated">We Do</h2>
+                <p class="wow fadeInDown animated">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget risus vitae massa <br> semper aliquam quis mattis quam.</p>
+            </div>
+    <div class="row"> 
+      <div class="col-md-4 col-sm-6 services text-center"> <span class="icon icon-recycle"></span>
+        <div class="services-content">
+          <h5>ALBUMS</h5>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eu libero scelerisque ligula sagittis faucibus eget quis lacus.</p>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6 services text-center"> <span class="icon icon-heart"></span>
+        <div class="services-content">
+          <h5>MUSIC PLAYLIST</h5>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eu libero scelerisque ligula sagittis faucibus eget quis lacus.</p>
+        </div>
+      </div> 
+      <div class="col-md-4 col-sm-6 services text-center"> <span class="icon icon-megaphone"></span>
+        <div class="services-content">
+          <h5>GALLERY</h5>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eu libero scelerisque ligula sagittis faucibus eget quis lacus.</p>
+        </div>
+      </div> 
+    </div>
+  </div>
+</section>
+ 
+<!-- Footer section -->
+
+<!-- Footer section --> 
+<!-- JS FILES --> 
+<script type="module">
+  import AudioMotionAnalyzer from "https://cdn.skypack.dev/audiomotion-analyzer?min";
+
+  document.getElementById("live").addEventListener("click", () => {
+    const closebtn = document.getElementById('close')
+    closebtn.style.display = 'block'
+
+    const banner = document.getElementById('playui')
+    banner.style.display = 'none'
+    const audioEl = document.getElementById("audio");
+    const audioMotion = new AudioMotionAnalyzer(
+      document.getElementById("rattlyzer"),
+      {
+        source: document.getElementById("audio"),
+        height: 750,
+        // you can set other options below - check the docs!
+        mode: 3,
+        barSpace: 0.6,
+        showLeds: true,
+        bgAlpha: 0.7,
+        overlay: true,
+        showBgColor: true
+      }
+    );
+
+    var audio = new Audio();
+    audioEl.src = "assets/arak.mp3";
+    audioEl.style.display = 'block';
+    audioEl.play();
+    document.getElementById('playui').style.display = 'flex'
+    
+
+
+
+  });
+
+  document.getElementById("close").addEventListener('click', () => {
+    let audioPLayer = document.getElementById("audio")
+    audioPLayer.pause()
+    audioPLayer.src = ''
+    audioPLayer.style.display = 'none'
+    document.getElementById('rattlyzer').style.display = 'none';
+    document.getElementById('close').style.display = 'none';
+
+  })
+</script>
+<script src="https://kit.fontawesome.com/8c318bc898.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/jquery.flexslider-min.js"></script> 
+<script src="js/jquery.fancybox.pack.js"></script> 
+<script src="js/retina.min.js"></script> 
+<script src="js/modernizr.js"></script> 
+<script src="js/main.js"></script> 
+<script type="text/javascript" src="js/jquery.contact.js"></script> 
+
+<script type="text/javascript" src="jPlayer-2.9.2/dist/jplayer/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="jPlayer-2.9.2/dist/add-on/jplayer.playlist.min.js"></script> 
+<script type="text/javascript">
+  
+//<![CDATA[
+$(document).ready(function(){
+ 
+
+});
+//]]>
+</script>
+</body>
+</html>
