@@ -1,0 +1,24 @@
+body {
+  background-image: url("./assets/TEXTURE.jpg");
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-color: rgba(0, 0, 0, 0.3);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+@font-face {
+  font-family: "zest";
+  src: url("./assets/fonts/ZESTREGULAR.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "zestB";
+  src: url("./assets/fonts/ZESTBOLD.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "zestL";
+  src: url("./assets/fonts/ZESTLIGHT.TTF") format("truetype");
+}
