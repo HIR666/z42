@@ -24,7 +24,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <BrowserRouter basename={import.meta.env.DEV ? "/" : "/z42/"}>
+      <BrowserRouter basename={"/z42"}>
         <MainAppBar />
         <Box
           component="div"
