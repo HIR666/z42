@@ -1,7 +1,7 @@
 {
   "name": "z42-actual",
   "homepage": "https://hir666.github.io/z42",
-  "private": true,
+  "private": false,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
