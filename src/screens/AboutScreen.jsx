@@ -40,7 +40,7 @@ const AboutScreen = () => {
               sx={{
                 fontFamily: "zest",
                 textAlign: "right",
-                fontSize: { xs: 24, md: 28 },
+                fontSize: { xs: 20, md: 24 },
                 fontWeight: 100,
               }}
             >
@@ -85,7 +85,7 @@ const AboutScreen = () => {
             textAlign={"right"}
             padding={3}
             sx={{
-              fontSize: { lg: 46, md: 40, xs: 30 },
+              fontSize: { lg: 46, md: 40, xs: 24 },
               fontFamily: "zest",
               color: "black",
             }}
@@ -120,7 +120,7 @@ const AboutScreen = () => {
             textAlign={"right"}
             padding={3}
             sx={{
-              fontSize: { lg: 46, md: 40, xs: 30 },
+              fontSize: { lg: 46, md: 40, xs: 24 },
               fontFamily: "zest",
               color: "black",
             }}
@@ -155,7 +155,7 @@ const AboutScreen = () => {
             textAlign={"right"}
             padding={3}
             sx={{
-              fontSize: { lg: 46, md: 40, xs: 30 },
+              fontSize: { lg: 46, md: 40, xs: 24 },
               fontFamily: "zest",
               color: "black",
             }}
@@ -189,7 +189,7 @@ const AboutScreen = () => {
             textAlign={"right"}
             padding={3}
             sx={{
-              fontSize: { lg: 46, md: 40, xs: 30 },
+              fontSize: { lg: 46, md: 40, xs: 24 },
               fontFamily: "zest",
               color: "black",
             }}

@@ -47,6 +47,7 @@ const HomeScreen = () => {
             fontFamily: "zest",
             fontSize: { md: 30, xs: 20 },
             padding: 3,
+            borderRadius: 0,
           }}
           elevation={12}
         >
