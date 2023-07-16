@@ -41,8 +41,8 @@ function App() {
           }}
         >
           <Routes>
-            <Route path="/" element={<HomeScreen />} />
-            <Route path="/about" element={<AboutScreen />} />
+            <Route path="/z42/" element={<HomeScreen />} />
+            <Route path="/z42/about" element={<AboutScreen />} />
           </Routes>
         </Box>
       </BrowserRouter>
