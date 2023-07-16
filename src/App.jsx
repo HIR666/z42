@@ -15,8 +15,16 @@ import "./assets/fonts/ZESTREGULAR.ttf";
 import "./assets/fonts/ZESTLIGHT.ttf";
 
 const theme = createTheme({
+  components: {
+    MuiPaper: {
+      styleOverrides: { root: { backgroundImage: "unset" } },
+    },
+  },
   palette: {
     mode: "dark",
+    background: {
+      paper: "#000000", // your color
+    },
   },
 });
 

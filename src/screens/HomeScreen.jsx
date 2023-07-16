@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Box, Grid } from "@mui/material";
+import { Container, Box, Grid, Paper } from "@mui/material";
 import hero from "../assets/hero.png";
 
 const HomeScreen = () => {
@@ -39,14 +39,16 @@ const HomeScreen = () => {
         <img src={hero} style={{ maxWidth: "100%", maxHeight: "80vh" }} />
       </Grid>
       <Grid item xs={12} m={0} p={0}>
-        <Box
+        <Paper
           p={3}
           sx={{
             backgroundColor: "black",
             textAlign: "center",
             fontFamily: "zest",
             fontSize: { md: 30, xs: 20 },
+            padding: 3,
           }}
+          elevation={12}
         >
           <Container maxWidth="lg">
             Zaquurah 42
@@ -55,12 +57,12 @@ const HomeScreen = () => {
             العراقي بأسلوب فريد يجمع بين العناصر الموسيقية الغربية مثل الجيتار
             والبيانو والطبول، مع الكلمات العراقية والعربية
           </Container>
-        </Box>
+        </Paper>
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={12} mt={3}>
         <Container maxWidth="lg">
           <Grid container>
-            <Grid item md={6} xs={12} p={2}>
+            <Grid item md={6} xs={12} p={{ md: 2, xs: 1 }}>
               <iframe
                 style={{ borderRadius: 12 }}
                 src="https://open.spotify.com/embed/track/5nqOjKiRqVz419NELQpfYK?utm_source=generator&theme=0"
@@ -72,7 +74,7 @@ const HomeScreen = () => {
                 loading="lazy"
               />
             </Grid>
-            <Grid item md={6} xs={12} p={2}>
+            <Grid item md={6} xs={12} p={{ md: 2, xs: 1 }}>
               <iframe
                 style={{ borderRadius: 12 }}
                 src="https://open.spotify.com/embed/track/6BOIPwVT7VupN6EUwkwh17?utm_source=generator&theme=0"

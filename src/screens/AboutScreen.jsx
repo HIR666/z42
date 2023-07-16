@@ -28,7 +28,7 @@ const AboutScreen = () => {
           // alignItems={"center"}
           // justifyContent={"center"}
         >
-          <Card>
+          <Card elevation={12}>
             <CardMedia
               image={aboutus}
               sx={{
@@ -195,7 +195,7 @@ const AboutScreen = () => {
             }}
           >
             محمد رعد، يبلغ من العمر 26 عامًا، وهو عازف الدرامز في الفرقة. منذ
-            طفولته، كان حلمه أن يصبح عازفًا للدرامز، وتحقق حلمه في عام 2019
+            طفولته، كان حلمه أن يصبح عازفًا للدرامز، وتحقق حلمه في عام 2020
             عندما أصبح عضوًا في فرقة زقورة 42
           </Grid>
           <Grid item xs={12} md={6}>
