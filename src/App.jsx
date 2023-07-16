@@ -2,7 +2,7 @@
 //import { useState } from "react";
 
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import AboutScreen from "./screens/AboutScreen";
 import HomeScreen from "./screens/HomeScreen";
 import MainAppBar from "./components/AppBar";
@@ -24,7 +24,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <BrowserRouter basename={"/z42"}>
+      <HashRouter>
         <MainAppBar />
         <Box
           component="div"
@@ -45,7 +45,7 @@ function App() {
             <Route path="/about" element={<AboutScreen />} />
           </Routes>
         </Box>
-      </BrowserRouter>
+      </HashRouter>
     </ThemeProvider>
   );
 }

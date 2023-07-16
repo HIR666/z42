@@ -34,11 +34,11 @@ const Zaq = (s, m) => {
 const pages = [
   {
     display: "HOME",
-    url: "/z42",
+    url: "/",
   },
   {
     display: "ABOUT",
-    url: "/z42/about",
+    url: "#/about",
   },
   // {
   //   display: "CONTACT US",
