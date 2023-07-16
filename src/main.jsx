@@ -22,6 +22,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { basename: import.meta.env.DEV ? "/" : "/z42/" },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

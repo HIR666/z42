@@ -34,11 +34,11 @@ const Zaq = (s, m) => {
 const pages = [
   {
     display: "HOME",
-    url: "/",
+    url: "/z42",
   },
   {
     display: "ABOUT",
-    url: "about",
+    url: "/z42/about",
   },
   // {
   //   display: "CONTACT US",
@@ -77,7 +77,7 @@ function MainAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href="/z42"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
