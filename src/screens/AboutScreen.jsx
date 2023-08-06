@@ -13,10 +13,10 @@ import {
   Slide,
   Button,
 } from "@mui/material";
-import alash from "../assets/ALASH.png";
-import moefoe from "../assets/MOEFOE.png";
-import bman from "../assets/BMAN.png";
-import moeraad from "../assets/MOE_RAAD.png";
+import alash from "../assets/ALASH.webp";
+import moefoe from "../assets/MOEFOE.webp";
+import bman from "../assets/BMAN.webp";
+import moeraad from "../assets/MOE_RAAD.webp";
 import aboutus from "../assets/ABOUTUS.jpg";
 
 import Aos, { init } from "aos";

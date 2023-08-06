@@ -7,7 +7,7 @@ import AboutScreen from "./screens/AboutScreen";
 import HomeScreen from "./screens/HomeScreen";
 import MainAppBar from "./components/AppBar";
 import { ThemeProvider, createTheme, CssBaseline, Box } from "@mui/material";
-import texture from "./assets/TEXTURE.jpg";
+import texture from "./assets/TEXTURE.webp";
 
 //fonts
 import "./assets/fonts/ZESTBOLD.ttf";

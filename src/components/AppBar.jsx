@@ -33,22 +33,19 @@ function MainAppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const { toggleLanguage, termReturner, currentReturner } =
     useContext(LanguageContext);
-  const [current, setCurrent] = useState("ar");
 
   const handleLanguage = (e) => {
     if (e.target.checked) {
       toggleLanguage(e.target.value);
-      setCurrent("en");
     } else {
       toggleLanguage("ar");
-      setCurrent("ar");
     }
   };
 
   const pages = [
     {
       display: termReturner("home"),
-      url: "/",
+      url: "#/",
     },
     {
       display: termReturner("about"),
@@ -86,12 +83,12 @@ function MainAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="/z42"
+            href="#/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
 
-              fontFamily: current == "ar" ? "zest" : "monospace",
+              fontFamily: currentReturner() == "ar" ? "zest" : "monospace",
               fontWeight: 700,
               // letterSpacing: ".3rem",
               color: "inherit",
@@ -160,7 +157,7 @@ function MainAppBar() {
               mr: 2,
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontFamily: current == "ar" ? "zest" : "monospace",
+              fontFamily: currentReturner() == "ar" ? "zest" : "monospace",
               fontWeight: 700,
               // letterSpacing: ".3rem",
               color: "inherit",
@@ -179,7 +176,7 @@ function MainAppBar() {
                   my: 2,
                   color: "white",
                   display: "block",
-                  fontFamily: current == "ar" ? "zest" : "inherit",
+                  fontFamily: "zest",
                 }}
               >
                 {page.display}

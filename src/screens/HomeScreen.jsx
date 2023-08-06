@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { Container, Box, Grid, Paper } from "@mui/material";
-import hero from "../assets/hero.png";
+import { Container, Grid, Paper } from "@mui/material";
+import hero from "../assets/hero.webp";
 import { LanguageContext } from "../utils/languageContext";
 
 const HomeScreen = () => {
