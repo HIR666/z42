@@ -13,6 +13,7 @@ import texture from "./assets/TEXTURE.jpg";
 import "./assets/fonts/ZESTBOLD.ttf";
 import "./assets/fonts/ZESTREGULAR.ttf";
 import "./assets/fonts/ZESTLIGHT.ttf";
+import { LanguageProvider } from "./utils/languageContext";
 
 const theme = createTheme({
   components: {
@@ -22,6 +23,7 @@ const theme = createTheme({
   },
   palette: {
     mode: "dark",
+    direction: "ltr",
     background: {
       paper: "#000000", // your color
     },
@@ -32,28 +34,30 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <HashRouter>
-        <MainAppBar />
-        <Box
-          component="div"
-          sx={{
-            position: "fixed",
-            width: "100%",
-            height: "100%",
-            backgroundImage: `linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${texture})`,
-            // backgroundPosition: "center",
-            backgroundSize: "cover",
-            // backgroundRepeat: "no-repeat",
-            overflowY: "scroll",
-            paddingBottom: 20,
-          }}
-        >
-          <Routes>
-            <Route path="/" element={<HomeScreen />} />
-            <Route path="/about" element={<AboutScreen />} />
-          </Routes>
-        </Box>
-      </HashRouter>
+      <LanguageProvider>
+        <HashRouter>
+          <MainAppBar />
+          <Box
+            component="div"
+            sx={{
+              position: "fixed",
+              width: "100%",
+              height: "100%",
+              backgroundImage: `linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${texture})`,
+              // backgroundPosition: "center",
+              backgroundSize: "cover",
+              // backgroundRepeat: "no-repeat",
+              overflowY: "scroll",
+              paddingBottom: 20,
+            }}
+          >
+            <Routes>
+              <Route path="/" element={<HomeScreen />} />
+              <Route path="/about" element={<AboutScreen />} />
+            </Routes>
+          </Box>
+        </HashRouter>
+      </LanguageProvider>
     </ThemeProvider>
   );
 }

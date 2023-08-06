@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import * as React from "react";
+import React, { useContext, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -14,42 +14,51 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import logo from "../assets/logoclear.png";
-// import SvgIcon from "@mui/material/SvgIcon";
 
-// import ZAQ from "../assets/zaq.svg";
+//switch
+import { FormControlLabel, Switch } from "@mui/material";
 
-// const Zaq = () => {
-//   return (
-//     <SvgIcon color="white">
-//       <use xlinkHref={`${ZAQ}#zaq`} />
-//     </SvgIcon>
-//   );
-// };
+import { LanguageContext } from "../utils/languageContext";
 
 const Zaq = (s, m) => {
   return <img src={logo} style={{ width: 35, marginRight: 12 }} />;
 };
 
 //const pages = ["home", "about", "contact us"];
-const pages = [
-  {
-    display: "HOME",
-    url: "/",
-  },
-  {
-    display: "ABOUT",
-    url: "#/about",
-  },
-  // {
-  //   display: "CONTACT US",
-  //   url: "contact",
-  // },
-];
+
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function MainAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const { toggleLanguage, termReturner, currentReturner } =
+    useContext(LanguageContext);
+  const [current, setCurrent] = useState("ar");
+
+  const handleLanguage = (e) => {
+    if (e.target.checked) {
+      toggleLanguage(e.target.value);
+      setCurrent("en");
+    } else {
+      toggleLanguage("ar");
+      setCurrent("ar");
+    }
+  };
+
+  const pages = [
+    {
+      display: termReturner("home"),
+      url: "/",
+    },
+    {
+      display: termReturner("about"),
+      url: "#/about",
+    },
+    // {
+    //   display: "CONTACT US",
+    //   url: "contact",
+    // },
+  ];
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -82,14 +91,14 @@ function MainAppBar() {
               mr: 2,
               display: { xs: "none", md: "flex" },
 
-              fontFamily: "monospace",
+              fontFamily: current == "ar" ? "zest" : "monospace",
               fontWeight: 700,
-              letterSpacing: ".3rem",
+              // letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
             }}
           >
-            Zaquurah 42
+            {termReturner("z42title")}
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -127,7 +136,11 @@ function MainAppBar() {
                     textAlign="center"
                     component={"a"}
                     href={page.url}
-                    style={{ color: "inherit", textDecoration: "none" }}
+                    style={{
+                      color: "inherit",
+                      textDecoration: "none",
+                      fontFamily: "zest",
+                    }}
                   >
                     {page.display}
                   </Typography>
@@ -147,14 +160,14 @@ function MainAppBar() {
               mr: 2,
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontFamily: "monospace",
+              fontFamily: current == "ar" ? "zest" : "monospace",
               fontWeight: 700,
-              letterSpacing: ".3rem",
+              // letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
             }}
           >
-            Zaquurah 42
+            {termReturner("z42title")}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
@@ -162,15 +175,31 @@ function MainAppBar() {
                 href={page.url}
                 key={page.url}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{
+                  my: 2,
+                  color: "white",
+                  display: "block",
+                  fontFamily: current == "ar" ? "zest" : "inherit",
+                }}
               >
                 {page.display}
               </Button>
             ))}
           </Box>
 
-          {/* <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+          {/* right side of appbar code begin */}
+
+          <Box sx={{ flexGrow: 0 }}>
+            <span>AR</span>
+            <Switch
+              color="primary"
+              onChange={(e) => {
+                handleLanguage(e);
+              }}
+              value="en"
+            />
+            <span>EN</span>
+            {/* <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
@@ -196,8 +225,10 @@ function MainAppBar() {
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
-            </Menu>
-          </Box> */}
+            </Menu> */}
+          </Box>
+
+          {/* right side of appbar code end */}
         </Toolbar>
       </Container>
     </AppBar>

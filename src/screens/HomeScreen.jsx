@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container, Box, Grid, Paper } from "@mui/material";
 import hero from "../assets/hero.png";
+import { LanguageContext } from "../utils/languageContext";
 
 const HomeScreen = () => {
+  const { termReturner } = useContext(LanguageContext);
   return (
     // <Box
     //   sx={{
@@ -52,11 +54,10 @@ const HomeScreen = () => {
           elevation={12}
         >
           <Container maxWidth="lg">
-            Zaquurah 42
+            {termReturner("firstp")}
             <br />
-            هي فرقة موسيقية تأسست عام ٢٠٢٠ وتتكون من ٤ أشخاص. تقدم الفرقة الروك
-            العراقي بأسلوب فريد يجمع بين العناصر الموسيقية الغربية مثل الجيتار
-            والبيانو والطبول، مع الكلمات العراقية والعربية
+            <br />
+            {termReturner("secondp")}
           </Container>
         </Paper>
       </Grid>
