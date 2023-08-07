@@ -149,7 +149,7 @@ function MainAppBar() {
             <Zaq />
           </Box>
           <Typography
-            variant="h5"
+            variant="subtitle1"
             noWrap
             component="a"
             href=""
@@ -187,7 +187,12 @@ function MainAppBar() {
           {/* right side of appbar code begin */}
 
           <Box sx={{ flexGrow: 0 }}>
-            <span>AR</span>
+            <Typography
+              sx={{ fontSize: { xs: 12, md: 14 } }}
+              component={"span"}
+            >
+              AR
+            </Typography>
             <Switch
               color="primary"
               onChange={(e) => {
@@ -195,7 +200,12 @@ function MainAppBar() {
               }}
               value="en"
             />
-            <span>EN</span>
+            <Typography
+              sx={{ fontSize: { xs: 12, md: 14 } }}
+              component={"span"}
+            >
+              EN
+            </Typography>
             {/* <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
