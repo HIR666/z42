@@ -11,21 +11,18 @@ import {
   Dialog,
   CircularProgress,
   DialogContent,
-  DialogTitle,
-  Alert,
   Snackbar,
+  Alert,
 } from "@mui/material";
 import axios from "axios";
 import seatImg from "../assets/moe_live.png";
 import payImg from "../assets/pay.jpg";
-import QRCode from "react-qr-code"; // npm install react-qr-code
+import QRCode from "react-qr-code";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-// import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
 
-// API BASE URL (Laravel backend)
 const API_BASE = "https://ratback.tdelta.net";
 
+// SEAT MAPS
 const leftSection = [
   ["A1", "A2", "A3", "A4"],
   ["B2", "B3", "B4", "B5"],
@@ -52,6 +49,13 @@ const rightSection = [
   ["T1", "T2", "T3", "T4", "T5"],
 ];
 
+// VIP LOGIC
+const isVipSeat = (seat) =>
+  seat.startsWith("A") ||
+  seat.startsWith("B") ||
+  seat.startsWith("K") ||
+  seat.startsWith("L");
+
 export default function SeatingForm() {
   const [selectedSeat, setSelectedSeat] = useState(null);
   const [reservedSeats, setReservedSeats] = useState([]);
@@ -59,9 +63,9 @@ export default function SeatingForm() {
   const [sending, setSending] = useState(false);
   const [openLightbox, setOpenLightbox] = useState(false);
 
-  // Success modal
   const [successModal, setSuccessModal] = useState(false);
   const [ticketCode, setTicketCode] = useState("");
+  const [ticketPrice, setTicketPrice] = useState(15000);
 
   const [form, setForm] = useState({
     name: "",
@@ -73,14 +77,12 @@ export default function SeatingForm() {
     message: "",
   });
 
-  const showCopied = (msg) => {
-    setCopyToast({ open: true, message: msg });
-  };
+  const showCopied = (msg) => setCopyToast({ open: true, message: msg });
 
   const handleFormChange = (field, value) =>
     setForm({ ...form, [field]: value });
 
-  // Fetch reserved seats
+  // FETCH RESERVED SEATS
   const fetchReservations = async () => {
     try {
       const res = await axios.get(`${API_BASE}/api/moelive/reservations`);
@@ -99,49 +101,22 @@ export default function SeatingForm() {
 
   const isSeatTaken = (seat) => reservedSeats.includes(seat);
 
-  const SeatButton = ({ seat }) => (
-    <IconButton
-      disabled={isSeatTaken(seat)}
-      onClick={() => setSelectedSeat(seat)}
-      sx={{
-        width: 45,
-        height: 45,
-        borderRadius: 1,
-        border: isSeatTaken(seat) ? "1px solid red" : "1px solid #999",
-        backgroundColor:
-          selectedSeat === seat
-            ? "black"
-            : isSeatTaken(seat)
-            ? "#ffdddd"
-            : "white",
-        color: selectedSeat === seat ? "white" : "black",
-        cursor: isSeatTaken(seat) ? "not-allowed" : "pointer",
-        opacity: isSeatTaken(seat) ? 0.6 : 1,
-        "&:hover": {
-          backgroundColor: isSeatTaken(seat)
-            ? "#ffdddd"
-            : selectedSeat === seat
-            ? "#333"
-            : "#eee",
-        },
-      }}
-    >
-      <Typography variant="body2">{seat}</Typography>
-    </IconButton>
-  );
-
-  // Generate ticket ID
+  // GENERATE UNIQUE ID
   const generateUniqueId = (seat) => {
     const randStr = Math.random().toString(36).substring(2, 6);
     return `${seat}_${randStr}`;
   };
 
-  // Submit reservation
+  // SUBMIT
   const handleSubmit = async () => {
     if (!selectedSeat || !form.name) return;
 
     const uid = generateUniqueId(selectedSeat);
     setTicketCode(uid);
+
+    const price = isVipSeat(selectedSeat) ? 25000 : 15000;
+    setTicketPrice(price);
+
     setSending(true);
 
     try {
@@ -150,9 +125,9 @@ export default function SeatingForm() {
         phone: form.phone,
         seat: selectedSeat,
         unique_id: uid,
+        price: price,
       });
 
-      // Success → Show ticket modal
       setSuccessModal(true);
       fetchReservations();
       setSelectedSeat(null);
@@ -176,6 +151,44 @@ export default function SeatingForm() {
       </Box>
     );
 
+  // SEAT BUTTON (WITH VIP COLOR)
+  const SeatButton = ({ seat }) => {
+    const vip = isVipSeat(seat);
+    const taken = isSeatTaken(seat);
+
+    return (
+      <IconButton
+        disabled={taken}
+        onClick={() => setSelectedSeat(seat)}
+        sx={{
+          width: 45,
+          height: 45,
+          borderRadius: 1,
+          border: taken ? "1px solid red" : "1px solid #999",
+          backgroundColor: taken
+            ? "#ffdddd"
+            : selectedSeat === seat
+            ? "black"
+            : vip
+            ? "#ffe8a3" // VIP color
+            : "white",
+          color: selectedSeat === seat ? "white" : "black",
+          "&:hover": {
+            backgroundColor: taken
+              ? "#ffdddd"
+              : selectedSeat === seat
+              ? "#333"
+              : vip
+              ? "#ffe199"
+              : "#eee",
+          },
+        }}
+      >
+        <Typography variant="body2">{seat}</Typography>
+      </IconButton>
+    );
+  };
+
   return (
     <Container maxWidth="lg">
       {/* SUCCESS MODAL */}
@@ -185,7 +198,6 @@ export default function SeatingForm() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            justifyContent: "flex-start",
             textAlign: "center",
             width: "100%",
             maxWidth: "600px",
@@ -196,18 +208,12 @@ export default function SeatingForm() {
           {/* TITLE */}
           <Typography
             variant="h4"
-            sx={{
-              mb: 3,
-              mt: 1,
-              width: "100%",
-              textAlign: "center",
-              fontFamily: "zest",
-            }}
+            sx={{ mb: 3, mt: 1, fontFamily: "zest", width: "100%" }}
           >
             🎟️ تم تثبيت الحجز بنجاح
           </Typography>
 
-          {/* UNIQUE ID SECTION */}
+          {/* UNIQUE ID */}
           <Typography variant="h6" sx={{ mb: 1, fontFamily: "zest" }}>
             رمز التذكرة الخاص بك:
           </Typography>
@@ -215,30 +221,40 @@ export default function SeatingForm() {
           <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 3 }}>
             <Typography
               variant="h4"
-              sx={{ fontWeight: "bold", color: "green" }}
+              sx={{ fontWeight: "bold", color: "green", fontFamily: "zest" }}
             >
               {ticketCode}
             </Typography>
 
             <IconButton
-              sx={{
-                border: "1px solid #ccc",
-                borderRadius: 1,
-                p: "6px",
-              }}
               onClick={() => {
                 navigator.clipboard.writeText(ticketCode);
                 showCopied("تم نسخ رمز التذكرة");
               }}
+              sx={{ border: "1px solid #ccc", borderRadius: 1 }}
             >
-              <ContentCopyIcon fontSize="small" />
+              <ContentCopyIcon />
             </IconButton>
           </Box>
 
-          {/* QR CODE */}
+          {/* QR */}
           <Box sx={{ mb: 3 }}>
             <QRCode value={ticketCode} size={220} />
           </Box>
+
+          {/* PRICE */}
+          <Typography
+            variant="h5"
+            sx={{
+              color: "#b30000",
+              fontWeight: "bold",
+              my: 2,
+              fontFamily: "zest",
+            }}
+          >
+            سعر التذكرة: {ticketPrice.toLocaleString()} دينار عراقي
+            {ticketPrice === 25000 && " (VIP)"}
+          </Typography>
 
           {/* RED WARNING */}
           <Typography
@@ -255,10 +271,10 @@ export default function SeatingForm() {
             الرجاء أخذ لقطة شاشة أو كتابة الكود في مكان آمن، لأنه يعتبر تذكرتك
             للدخول. يجب الدفع لتأكيد الحجز، وفي حال عدم الدفع سيتم إلغاء الحجز.
             <br />
-            في الأسفل يوجد فيديو يشرح طريقة الدفع.
+            يرجى الرجوع إلى لقطة الشاشة أدناه لتوضيح عملية الدفع.
           </Typography>
 
-          {/* PAYMENT SECTION */}
+          {/* PAYMENT NUMBER */}
           <Typography
             variant="h5"
             sx={{
@@ -273,68 +289,49 @@ export default function SeatingForm() {
           </Typography>
 
           <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
-            <Typography variant="h6" sx={{ direction: "rtl", color: "blue" }}>
+            <Typography
+              variant="h6"
+              sx={{ direction: "rtl", color: "blue", fontFamily: "zest" }}
+            >
               8080655536
             </Typography>
 
             <IconButton
-              sx={{
-                border: "1px solid #ccc",
-                borderRadius: 1,
-                p: "6px",
-              }}
               onClick={() => {
                 navigator.clipboard.writeText("8080655536");
                 showCopied("تم نسخ رقم الحساب");
               }}
+              sx={{ border: "1px solid #ccc", borderRadius: 1 }}
             >
-              <ContentCopyIcon fontSize="small" />
+              <ContentCopyIcon />
             </IconButton>
           </Box>
 
-          {/* PAYMENT QR */}
+          {/* PAY QR */}
           <img
             src={payImg}
             alt="pay"
             style={{ width: "80%", maxWidth: 300, marginTop: 10 }}
           />
 
-          {/* VIDEO PLACEHOLDER */}
-          <Typography
-            variant="h6"
-            sx={{ mt: 4, mb: 1, fontWeight: "bold", fontFamily: "zest" }}
-          >
-            شرح الدفع:
-          </Typography>
+          {/* PAY GUIDE IMAGE */}
+          <img
+            src="https://ratback.tdelta.net/public/uzf/1/ktzpnbo4y4/pay_guide.png"
+            alt="Payment Guide"
+            style={{ width: "90%", marginTop: 25, borderRadius: 10 }}
+          />
 
-          <Box
-            sx={{
-              width: "100%",
-              height: "220px",
-              backgroundColor: "#f0f0f0",
-              borderRadius: "10px",
-              mb: 3,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#888",
-            }}
-          >
-            سيتم وضع فيديو الشرح هنا
-          </Box>
-
-          {/* CLOSE BUTTON */}
           <Button
             variant="contained"
             color="primary"
-            sx={{ mt: 3, px: 5, py: 1.5 }}
+            sx={{ mt: 4, px: 5, py: 1.5, fontFamily: "zest" }}
             onClick={() => setSuccessModal(false)}
           >
             إغلاق
           </Button>
         </DialogContent>
 
-        {/* SNACKBAR FEEDBACK */}
+        {/* SNACKBAR */}
         <Snackbar
           open={copyToast.open}
           autoHideDuration={2000}
@@ -347,14 +344,14 @@ export default function SeatingForm() {
         </Snackbar>
       </Dialog>
 
-      {/* MAIN PAGE UI */}
+      {/* MAIN PAGE */}
       <Grid
         container
         sx={{
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontFamily: "zest !important",
+          fontFamily: "zest",
         }}
       >
         <Grid item xs={12} md={10}>
@@ -362,14 +359,14 @@ export default function SeatingForm() {
             sx={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
               flexDirection: "column",
             }}
           >
             <Typography variant="h4" mb={1}>
               SEATING RESERVATION
             </Typography>
-            <Typography variant="h5" mb={3}>
+
+            <Typography variant="h5" mb={3} sx={{ fontFamily: "zest" }}>
               ترتيب الجلوس
             </Typography>
 
@@ -393,15 +390,13 @@ export default function SeatingForm() {
               onClose={() => setOpenLightbox(false)}
               maxWidth="md"
             >
-              <img
-                src={seatImg}
-                alt="layout"
-                style={{ width: "100%", height: "auto" }}
-              />
+              <img src={seatImg} alt="layout" style={{ width: "100%" }} />
             </Dialog>
 
-            {/* RED NOTICE */}
-            <Typography variant="h6" sx={{ color: "red", mb: 2 }}>
+            <Typography
+              variant="h6"
+              sx={{ color: "red", mb: 2, fontFamily: "zest" }}
+            >
               الرجاء الرجوع إلى الصورة لفهم توزيع الكراسي
             </Typography>
 
@@ -415,6 +410,7 @@ export default function SeatingForm() {
                 value={form.name}
                 onChange={(e) => handleFormChange("name", e.target.value)}
               />
+
               <TextField
                 fullWidth
                 label="رقم الهاتف"
@@ -425,12 +421,13 @@ export default function SeatingForm() {
               />
             </Paper>
 
-            {/* SEATING GRID */}
+            {/* SEAT GRID */}
             <Grid container spacing={2} sx={{ justifyContent: "space-around" }}>
               <Grid item xs={12} md={6}>
                 <Typography variant="h6" mb={1}>
                   Left Section
                 </Typography>
+
                 <Grid container spacing={1}>
                   {leftSection.map((row, i) => (
                     <Grid key={i} container item spacing={1}>
@@ -448,6 +445,7 @@ export default function SeatingForm() {
                 <Typography variant="h6" mb={1}>
                   Right Section
                 </Typography>
+
                 <Grid container spacing={1}>
                   {rightSection.map((row, i) => (
                     <Grid key={i} container item spacing={1}>
