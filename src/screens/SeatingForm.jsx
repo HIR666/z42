@@ -170,7 +170,7 @@ export default function SeatingForm() {
             : selectedSeat === seat
             ? "black"
             : vip
-            ? "#ffe8a3" // VIP color
+            ? "#42cdd7ff" // VIP color
             : "white",
           color: selectedSeat === seat ? "white" : "black",
           "&:hover": {
@@ -420,6 +420,18 @@ export default function SeatingForm() {
                 onChange={(e) => handleFormChange("phone", e.target.value)}
               />
             </Paper>
+            <Typography
+              variant="h6"
+              mb={2}
+              sx={{
+                fontFamily: "zest",
+                color: "#42cdd7ff",
+                direction: "rtl",
+                fontWeight: "bold",
+              }}
+            >
+              لون مقاعد الـ VIP
+            </Typography>
 
             {/* SEAT GRID */}
             <Grid container spacing={2} sx={{ justifyContent: "space-around" }}>
