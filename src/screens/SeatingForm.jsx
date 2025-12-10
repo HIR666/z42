@@ -12,11 +12,16 @@ import {
   CircularProgress,
   DialogContent,
   DialogTitle,
+  Alert,
+  Snackbar,
 } from "@mui/material";
 import axios from "axios";
 import seatImg from "../assets/moe_live.png";
 import payImg from "../assets/pay.jpg";
 import QRCode from "react-qr-code"; // npm install react-qr-code
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+// import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 // API BASE URL (Laravel backend)
 const API_BASE = "https://ratback.tdelta.net";
@@ -62,6 +67,15 @@ export default function SeatingForm() {
     name: "",
     phone: "",
   });
+
+  const [copyToast, setCopyToast] = useState({
+    open: false,
+    message: "",
+  });
+
+  const showCopied = (msg) => {
+    setCopyToast({ open: true, message: msg });
+  };
 
   const handleFormChange = (field, value) =>
     setForm({ ...form, [field]: value });
@@ -176,10 +190,10 @@ export default function SeatingForm() {
             width: "100%",
             maxWidth: "600px",
             margin: "0 auto",
-            pt: 4, // ***** FIX: pushes content below the title
+            pt: 4,
           }}
         >
-          {/* TITLE MOVED INSIDE CONTENT FOR PERFECT CENTERING */}
+          {/* TITLE */}
           <Typography
             variant="h4"
             sx={{
@@ -187,26 +201,46 @@ export default function SeatingForm() {
               mt: 1,
               width: "100%",
               textAlign: "center",
+              fontFamily: "zest",
             }}
           >
             🎟️ تم تثبيت الحجز بنجاح
           </Typography>
 
-          <Typography variant="h6" sx={{ mb: 2 }}>
+          {/* UNIQUE ID SECTION */}
+          <Typography variant="h6" sx={{ mb: 1, fontFamily: "zest" }}>
             رمز التذكرة الخاص بك:
           </Typography>
 
-          <Typography
-            variant="h4"
-            sx={{ mb: 3, fontWeight: "bold", color: "green" }}
-          >
-            {ticketCode}
-          </Typography>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 3 }}>
+            <Typography
+              variant="h4"
+              sx={{ fontWeight: "bold", color: "green" }}
+            >
+              {ticketCode}
+            </Typography>
 
+            <IconButton
+              sx={{
+                border: "1px solid #ccc",
+                borderRadius: 1,
+                p: "6px",
+              }}
+              onClick={() => {
+                navigator.clipboard.writeText(ticketCode);
+                showCopied("تم نسخ رمز التذكرة");
+              }}
+            >
+              <ContentCopyIcon fontSize="small" />
+            </IconButton>
+          </Box>
+
+          {/* QR CODE */}
           <Box sx={{ mb: 3 }}>
             <QRCode value={ticketCode} size={220} />
           </Box>
 
+          {/* RED WARNING */}
           <Typography
             variant="h6"
             sx={{
@@ -219,38 +253,98 @@ export default function SeatingForm() {
             }}
           >
             الرجاء أخذ لقطة شاشة أو كتابة الكود في مكان آمن، لأنه يعتبر تذكرتك
-            للدخول. لن يسمح بالدخول بدون تقديم هذا الرمز.
+            للدخول. يجب الدفع لتأكيد الحجز، وفي حال عدم الدفع سيتم إلغاء الحجز.
+            <br />
+            في الأسفل يوجد فيديو يشرح طريقة الدفع.
           </Typography>
 
+          {/* PAYMENT SECTION */}
           <Typography
             variant="h5"
-            sx={{ mt: 4, mb: 1, fontWeight: "bold", direction: "rtl" }}
+            sx={{
+              mt: 4,
+              mb: 1,
+              fontWeight: "bold",
+              direction: "rtl",
+              fontFamily: "zest",
+            }}
           >
             للدفع عبر كي:
           </Typography>
 
-          <Typography
-            variant="h6"
-            sx={{ mb: 2, direction: "rtl", color: "blue" }}
-          >
-            8080655536
-          </Typography>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
+            <Typography variant="h6" sx={{ direction: "rtl", color: "blue" }}>
+              8080655536
+            </Typography>
 
+            <IconButton
+              sx={{
+                border: "1px solid #ccc",
+                borderRadius: 1,
+                p: "6px",
+              }}
+              onClick={() => {
+                navigator.clipboard.writeText("8080655536");
+                showCopied("تم نسخ رقم الحساب");
+              }}
+            >
+              <ContentCopyIcon fontSize="small" />
+            </IconButton>
+          </Box>
+
+          {/* PAYMENT QR */}
           <img
             src={payImg}
             alt="pay"
             style={{ width: "80%", maxWidth: 300, marginTop: 10 }}
           />
 
+          {/* VIDEO PLACEHOLDER */}
+          <Typography
+            variant="h6"
+            sx={{ mt: 4, mb: 1, fontWeight: "bold", fontFamily: "zest" }}
+          >
+            شرح الدفع:
+          </Typography>
+
+          <Box
+            sx={{
+              width: "100%",
+              height: "220px",
+              backgroundColor: "#f0f0f0",
+              borderRadius: "10px",
+              mb: 3,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#888",
+            }}
+          >
+            سيتم وضع فيديو الشرح هنا
+          </Box>
+
+          {/* CLOSE BUTTON */}
           <Button
             variant="contained"
             color="primary"
-            sx={{ mt: 5, px: 5, py: 1.5 }}
+            sx={{ mt: 3, px: 5, py: 1.5 }}
             onClick={() => setSuccessModal(false)}
           >
             إغلاق
           </Button>
         </DialogContent>
+
+        {/* SNACKBAR FEEDBACK */}
+        <Snackbar
+          open={copyToast.open}
+          autoHideDuration={2000}
+          onClose={() => setCopyToast({ ...copyToast, open: false })}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        >
+          <Alert severity="success" sx={{ width: "100%" }}>
+            {copyToast.message}
+          </Alert>
+        </Snackbar>
       </Dialog>
 
       {/* MAIN PAGE UI */}
