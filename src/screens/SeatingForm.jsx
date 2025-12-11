@@ -397,7 +397,7 @@ export default function SeatingForm() {
               variant="h6"
               sx={{ color: "red", mb: 2, fontFamily: "zest" }}
             >
-              الرجاء الرجوع إلى الصورة لفهم توزيع الكراسي
+              الرجاء الرجوع إلى الصورة لفهم توزيع اماكن الجلوس
             </Typography>
 
             {/* FORM */}
