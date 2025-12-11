@@ -15,6 +15,7 @@ import "./assets/fonts/ZESTREGULAR.ttf";
 import "./assets/fonts/ZESTLIGHT.ttf";
 import { LanguageProvider } from "./utils/languageContext";
 import SeatingForm from "./screens/SeatingForm";
+import MoeliveAdmin from "./screens/MoeLiveAdmin";
 
 const theme = createTheme({
   components: {
@@ -56,6 +57,7 @@ function App() {
               <Route path="/" element={<HomeScreen />} />
               <Route path="/about" element={<AboutScreen />} />
               <Route path="/moelive" element={<SeatingForm />} />
+              <Route path="/moeliveadmin6481" element={<MoeliveAdmin />} />
             </Routes>
           </Box>
         </HashRouter>
